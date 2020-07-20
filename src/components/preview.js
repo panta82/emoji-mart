@@ -13,6 +13,15 @@ export default class Preview extends React.PureComponent {
     this.data = props.data
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.emoji && !this.props.emoji) {
+      this.props.onHidePreview()
+    }
+    if (!prevProps.emoji && this.props.emoji) {
+      this.props.onShowPreview()
+    }
+  }
+
   render() {
     const {
       emoji,
@@ -70,54 +79,56 @@ export default class Preview extends React.PureComponent {
           </div>
         </div>
       )
-    } else {
-      return (
-        <div className="emoji-mart-preview">
-          <div className="emoji-mart-preview-emoji" aria-hidden="true">
-            {idleEmoji &&
-              idleEmoji.length &&
-              NimbleEmoji({
-                emoji: idleEmoji,
-                data: this.data,
-                ...emojiProps,
-              })}
-          </div>
-
-          <div className="emoji-mart-preview-data" aria-hidden="true">
-            <span className="emoji-mart-title-label">{title}</span>
-          </div>
-
-          {showSkinTones && (
-            <div
-              className={`emoji-mart-preview-skins${
-                skinsProps.skinEmoji ? ' custom' : ''
-              }`}
-            >
-              {skinsProps.skinEmoji ? (
-                <SkinsEmoji
-                  skin={skinsProps.skin}
-                  emojiProps={emojiProps}
-                  data={this.data}
-                  skinEmoji={skinsProps.skinEmoji}
-                  i18n={i18n}
-                  onChange={skinsProps.onChange}
-                />
-              ) : (
-                <SkinsDot
-                  skin={skinsProps.skin}
-                  i18n={i18n}
-                  onChange={skinsProps.onChange}
-                />
-              )}
-            </div>
-          )}
-        </div>
-      )
     }
+
+    return (
+      <div className="emoji-mart-preview">
+        <div className="emoji-mart-preview-emoji" aria-hidden="true">
+          {idleEmoji &&
+            idleEmoji.length &&
+            NimbleEmoji({
+              emoji: idleEmoji,
+              data: this.data,
+              ...emojiProps,
+            })}
+        </div>
+
+        <div className="emoji-mart-preview-data" aria-hidden="true">
+          <span className="emoji-mart-title-label">{title}</span>
+        </div>
+
+        {showSkinTones && (
+          <div
+            className={`emoji-mart-preview-skins${
+              skinsProps.skinEmoji ? ' custom' : ''
+            }`}
+          >
+            {skinsProps.skinEmoji ? (
+              <SkinsEmoji
+                skin={skinsProps.skin}
+                emojiProps={emojiProps}
+                data={this.data}
+                skinEmoji={skinsProps.skinEmoji}
+                i18n={i18n}
+                onChange={skinsProps.onChange}
+              />
+            ) : (
+              <SkinsDot
+                skin={skinsProps.skin}
+                i18n={i18n}
+                onChange={skinsProps.onChange}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    )
   }
 }
 
 Preview.propTypes = {
+  onShowPreview: PropTypes.func.isRequired,
+  onHidePreview: PropTypes.func.isRequired,
   showSkinTones: PropTypes.bool,
   title: PropTypes.string.isRequired,
   idleEmoji: PropTypes.string.isRequired,

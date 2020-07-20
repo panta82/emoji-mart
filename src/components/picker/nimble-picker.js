@@ -321,6 +321,7 @@ export default class NimblePicker extends React.PureComponent {
       case 'Tab':
         // Focus on first category anchor
         this.anchors.buttons.firstChild.focus()
+        this.setState({ emoji: null })
         return
 
       case 'ArrowLeft':
@@ -620,6 +621,7 @@ export default class NimblePicker extends React.PureComponent {
         break
 
       case 'Escape':
+        console.log('here')
         // Jump to search text input
         this.search.input.focus()
         handled = true
@@ -822,6 +824,8 @@ export default class NimblePicker extends React.PureComponent {
               title={title}
               emoji={emoji}
               idleEmoji={idleEmoji}
+              onShowPreview={this.props.onShowPreview}
+              onHidePreview={this.props.onHidePreview}
               showSkinTones={showSkinTones}
               showPreview={showPreview}
               emojiProps={{

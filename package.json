@@ -1,6 +1,6 @@
 {
   "name": "emoji-mart",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Customizable Slack-like emoji picker for React",
   "main": "dist/index.js",
   "module": "dist-es/index.js",
@@ -76,8 +76,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prettier": "prettier --write \"{src,scripts,test,stories}/**/*.js\"",
-    "prettier:check": "prettier --check \"{src,scripts,test,stories}/**/*.js\"",
-    "prepare": "npm run build:dist"
+    "prettier:check": "prettier --check \"{src,scripts,test,stories}/**/*.js\""
   },
   "size-limit": [
     {
